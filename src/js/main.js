@@ -6,6 +6,8 @@
     //====================================================================//
 
     var DEBUG = true;
+    var DPR = window.devicePixelRatio || 1;
+
     var THREE = require('./lib/three');
     var Stats = require('./lib/Stats');
     var dat = require('./lib/dat.gui');
@@ -62,7 +64,7 @@
         scene = new THREE.Scene();
 
         geometry = new THREE.BoxGeometry( 400, 400, 400 );
-        material = new THREE.MeshBasicMaterial( { color: 0xff0088, wireframe: true } );
+        material = new THREE.MeshBasicMaterial( { color: 0xffffaa, wireframe: true, wireframeLinewidth: 2*DPR } );
 
         mesh = new THREE.Mesh( geometry, material );
         scene.add( mesh );
