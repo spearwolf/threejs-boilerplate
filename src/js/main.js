@@ -53,8 +53,13 @@
           , h = window.innerHeight
           ;
 
-        camera = new THREE.PerspectiveCamera(75, w / h, 1, 10000);
-        camera.position.z = 1000;
+        if (!camera) {
+            camera = new THREE.PerspectiveCamera(75, w / h, 1, 10000);
+            camera.position.z = 1000;
+        } else {
+            camera.aspect = w / h;
+            camera.updateProjectionMatrix();
+        }
 
         renderer.setSize(w, h);
     }
