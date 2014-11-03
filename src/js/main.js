@@ -5,9 +5,6 @@
     // require
     //====================================================================//
 
-    var DEBUG = true;
-    var DPR = window.devicePixelRatio || 1;
-
     var THREE = require('./lib/three');
     var Stats = require('./lib/Stats');
     var dat = require('./lib/dat.gui');
@@ -15,6 +12,9 @@
     //====================================================================//
     // globals
     //====================================================================//
+
+    var DEBUG = true;
+    var DPR = window.devicePixelRatio || 1;
 
     var camera
      ,  scene
@@ -81,12 +81,10 @@
 
     function animate() {
 
-        // note: three.js includes requestAnimationFrame shim
-        requestAnimationFrame( animate );
+        requestAnimationFrame(animate);
 
         if (stats) stats.begin();
 
-        //mesh.scale = new THREE.Vector3(params.scaleX, params.scaleY, params.scaleZ);
         mesh.scale.x = params.scaleX;
         mesh.scale.y = params.scaleY;
         mesh.scale.z = params.scaleZ;

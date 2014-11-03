@@ -5,6 +5,7 @@
   "scripts": {
     "start": "webpack-dev-server --progress --colors",
     "watch": "webpack --progress --colors --watch",
+    "build": "webpack --progress --colors",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Wolfger Schramm <wolfger@spearwolf.de>",

@@ -9,7 +9,7 @@ threejs-boilerplate
 
    `npm install`
 
-2. start server
+2. start dev server
 
    `npm start`
 
