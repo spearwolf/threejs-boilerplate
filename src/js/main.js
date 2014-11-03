@@ -50,9 +50,8 @@
 
     function resize() {
         var w = window.innerWidth
-          , h = window.innerHeight;
-
-        document.body.style.height = h + "px";
+          , h = window.innerHeight
+          ;
 
         camera = new THREE.PerspectiveCamera(75, w / h, 1, 10000);
         camera.position.z = 1000;
