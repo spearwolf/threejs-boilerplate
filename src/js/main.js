@@ -6,8 +6,10 @@
     //====================================================================//
 
     var THREE = require('./lib/three');
+    var TWEEN = require('./lib/Tween');
     var Stats = require('./lib/Stats');
     var dat = require('./lib/dat.gui');
+    var utils = require('./utils');
 
     //====================================================================//
     // globals
@@ -41,7 +43,8 @@
         init();
         init_stats();
         init_dat_gui();
-        animate();
+        requestAnimationFrame(animate);
+        utils.preventDefaultTouchEvents();
     };
 
     //====================================================================//
@@ -83,7 +86,7 @@
         document.body.appendChild(renderer.domElement);
     }
 
-    function animate() {
+    function animate(time) {
 
         requestAnimationFrame(animate);
 
