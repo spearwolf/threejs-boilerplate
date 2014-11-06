@@ -17,7 +17,7 @@
 
     var DEBUG = true;
 
-    var app, mesh, gui
+    var app, gui
      ,  params = { scaleX: 1.0, scaleY: 1.0, scaleZ: 1.0 }
      ;
 
@@ -52,19 +52,18 @@
             wireframeLinewidth: 2*app.DPR
         });
 
-        mesh = new THREE.Mesh(geometry, material);
-
-        app.scene.add(mesh);
+        app.mesh = new THREE.Mesh(geometry, material);
+        app.scene.add(app.mesh);
     }
 
     function animate(time) {
 
-        mesh.scale.x = params.scaleX;
-        mesh.scale.y = params.scaleY;
-        mesh.scale.z = params.scaleZ;
+        app.mesh.scale.x = params.scaleX;
+        app.mesh.scale.y = params.scaleY;
+        app.mesh.scale.z = params.scaleZ;
 
-        mesh.rotation.x += 0.01;
-        mesh.rotation.y += 0.02;
+        app.mesh.rotation.x += 0.01;
+        app.mesh.rotation.y += 0.02;
     }
 
     function init_dat_gui() {
