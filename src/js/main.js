@@ -6,26 +6,18 @@
     //====================================================================//
 
     var THREE = require('./lib/three');
-    var TWEEN = require('./lib/Tween');
-    var Stats = require('./lib/Stats');
+    //var TWEEN = require('./lib/Tween');
     var dat = require('./lib/dat.gui');
     var utils = require('./utils');
+    var ThreeApp = require('./ThreeApp');
 
     //====================================================================//
     // globals
     //====================================================================//
 
     var DEBUG = true;
-    var DPR = window.devicePixelRatio || 1;
 
-    var camera
-     ,  scene
-     ,  renderer
-     ,  stats
-     ,  geometry
-     ,  material
-     ,  mesh
-     ,  gui
+    var app, mesh, gui
      ,  params = { scaleX: 1.0, scaleY: 1.0, scaleZ: 1.0 }
      ;
 
@@ -35,15 +27,15 @@
 
     module.exports.main = function() {
 
+        app = new ThreeApp({ onRender: animate, onInit: init });
+
         if (DEBUG) {
             window.THREE = THREE;
+            window.threeApp = app;
             console.debug("hello from threejs-boilerplate");
         }
 
-        init();
-        init_stats();
         init_dat_gui();
-        requestAnimationFrame(animate);
         utils.preventDefaultTouchEvents();
     };
 
@@ -51,46 +43,21 @@
     // more functions
     //====================================================================//
 
-    function resize() {
-        var w = window.innerWidth
-          , h = window.innerHeight
-          ;
+    function init(app) {
 
-        if (!camera) {
-            camera = new THREE.PerspectiveCamera(75, w / h, 1, 10000);
-            camera.position.z = 1000;
-        } else {
-            camera.aspect = w / h;
-            camera.updateProjectionMatrix();
-        }
+        var geometry = new THREE.BoxGeometry(400, 400, 400);
+        var material = new THREE.MeshBasicMaterial({
+            color: 0xffffaa,
+            wireframe: true,
+            wireframeLinewidth: 2*app.DPR
+        });
 
-        renderer.setSize(w, h);
-    }
+        mesh = new THREE.Mesh(geometry, material);
 
-    function init() {
-        scene = new THREE.Scene();
-
-        geometry = new THREE.BoxGeometry( 400, 400, 400 );
-        material = new THREE.MeshBasicMaterial( { color: 0xffffaa, wireframe: true, wireframeLinewidth: 2*DPR } );
-
-        mesh = new THREE.Mesh( geometry, material );
-        scene.add( mesh );
-
-        // http://threejs.org/docs/#Reference/Renderers/WebGLRenderer
-        renderer = new THREE.WebGLRenderer({ alpha: true });
-        renderer.autoClear = true;
-
-        resize();
-        window.addEventListener('resize', resize, false);
-
-        document.body.appendChild(renderer.domElement);
+        app.scene.add(mesh);
     }
 
     function animate(time) {
-
-        requestAnimationFrame(animate);
-
-        if (stats) stats.begin();
 
         mesh.scale.x = params.scaleX;
         mesh.scale.y = params.scaleY;
@@ -98,19 +65,6 @@
 
         mesh.rotation.x += 0.01;
         mesh.rotation.y += 0.02;
-
-        renderer.render(scene, camera);
-
-        if (stats) stats.end();
-    }
-
-    function init_stats() {
-        stats = new Stats();
-        stats.setMode(0); // 0: fps, 1: ms
-
-        var el = stats.domElement;
-        el.classList.add('stats');
-        document.body.appendChild(el);
     }
 
     function init_dat_gui() {
