@@ -9,6 +9,7 @@ module.exports = {
     devtool: "#inline-source-map",
     devServer: {
         contentBase: PUBLIC,
+        host: "0.0.0.0"
     },
     module: {
         loaders: [
