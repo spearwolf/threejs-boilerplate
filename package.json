@@ -11,7 +11,30 @@
   },
   "author": "Wolfger Schramm <wolfger@spearwolf.de>",
   "license": "MIT",
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-1"
+    ],
+    "plugins": [
+      "transform-es2015-modules-commonjs",
+      "transform-runtime",
+      "transform-decorators",
+      "transform-object-assign"
+    ]
+  },
   "devDependencies": {
+    "babel-cli": "^6.4.5",
+    "babel-core": "^6.4.5",
+    "babel-loader": "^6.2.1",
+    "babel-plugin-transform-decorators": "^6.4.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.4.5",
+    "babel-plugin-transform-object-assign": "^6.3.13",
+    "babel-plugin-transform-runtime": "^6.4.3",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-stage-1": "^6.3.13",
+    "babel-register": "^6.4.3",
+    "babel-runtime": "^6.3.19",
     "css-loader": "^0.23.1",
     "node-sass": "^3.4.2",
     "sass-loader": "^3.1.2",

@@ -1,14 +1,12 @@
-(function(){
-    "use strict";
+"use strict";
 
-    var preventDefault = function(event) {
-        event.preventDefault();
-    };
+const preventDefault = function (event) {
+    event.preventDefault();
+};
 
-    module.exports.preventDefaultTouchEvents = function(elem) {
-        if (!elem) elem = document.body;
-        //elem.addEventListener('touchstart', preventDefault, false);
-        elem.addEventListener('touchmove', preventDefault, false);
-    };
+export function preventDefaultTouchEvents (elem) {
+    if (!elem) elem = document.body;
+    //elem.addEventListener('touchstart', preventDefault, false);
+    elem.addEventListener('touchmove', preventDefault, false);
+}
 
-})();

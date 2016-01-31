@@ -1,2 +1,3 @@
 require('./css/style.scss');
-require('./js/main').main();
+import { main } from './js/main';
+main();
