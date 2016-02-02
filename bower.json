@@ -1,0 +1,7 @@
+{
+  "name": "threejs-boilerplate",
+  "dependencies": {
+    "three.js": "threejs#*",
+    "stats.js": "*"
+  }
+}

@@ -2,13 +2,25 @@ $bgCol: #08c;
 
 html, body {
     height: 100%;
+}
+
+body, canvas {
     margin: 0;
     padding: 0;
 }
 
 body {
-    background-color: $bgCol;
+    position: relative;
     overflow: hidden;
+    background-color: $bgCol;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 
 .stats {
