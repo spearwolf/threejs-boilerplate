@@ -2,7 +2,8 @@
 'use strict';
 
 import { THREE, ThreeApp } from './three_app';
-import { preventDefaultTouchEvents } from './utils';
+//import { preventDefaultTouchEvents } from './utils';
+import PointerPositionTracker from './pointer_position_tracker';
 
 //====================================================================//
 // configuration
@@ -29,7 +30,11 @@ export function main () {
 
     Object.assign(app, DEFAULT_SETTINGS);
 
-    preventDefaultTouchEvents();
+    //preventDefaultTouchEvents();
+    app.pointer = new PointerPositionTracker(app.domElement);
+    //app.pointer.onTapMove = function (pointer) {
+        //console.log('onTapMove x=', pointer.pos.x, 'drag.x=', pointer.pos.drag.x);
+    //};
 
     init_dat_gui(app);
 
@@ -79,12 +84,14 @@ function init (app) {
 
 function animate (time, app) {
 
+    app.pointer.tick();
+
     app.mesh.scale.x = app.scaleX;
     app.mesh.scale.y = app.scaleY;
     app.mesh.scale.z = app.scaleZ;
 
-    app.mesh.rotation.x += 0.01;
-    app.mesh.rotation.y += 0.02;
+    app.mesh.rotation.x += 0.01 + (app.pointer.pos.drag.x * 0.2);
+    app.mesh.rotation.y += 0.02 + (app.pointer.pos.drag.y * 0.2);
 
 }
 

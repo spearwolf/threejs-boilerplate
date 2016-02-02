@@ -20,6 +20,7 @@ body {
     position: relative;
     overflow: hidden;
     background-color: $bgCol;
+    background: linear-gradient(to bottom, #61a5dd 0%,#aeecfe 100%);
 }
 
 canvas {
