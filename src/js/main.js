@@ -62,7 +62,7 @@ function init (app) {
 
     let geometry = new THREE.BoxGeometry(400, 400, 400);
     let material = new THREE.MeshBasicMaterial({
-                     color: 0xffffaa,
+                     color: 0xffffcc,
                  wireframe: true,
         wireframeLinewidth: 2
     });

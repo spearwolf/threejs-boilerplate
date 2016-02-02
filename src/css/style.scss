@@ -1,4 +1,11 @@
-$bgCol: #08c;
+$bgCol: #688CB1;
+
+* {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
 html, body {
     height: 100%;
