@@ -1,7 +1,15 @@
-"use strict";
+'use strict';
 
 export const THREE = require('../../bower_components/three.js/build/three.min');
 export const Stats = require('../../bower_components/stats.js/build/stats.min');
+
+import PointerPositionTracker from './pointer_position_tracker';
+import eventize from './custom_event';
+import Timer from './timer';
+import { preventDefaultTouchEvents } from './utils';
+
+
+const EVENT_PRIO_HIGH = 100000;
 
 const DEFAULT_OPTIONS = {
 
@@ -17,6 +25,7 @@ const DEFAULT_OPTIONS = {
          onRender: null
 
 };
+
 
 export function ThreeApp (options) {
 
@@ -34,12 +43,17 @@ export function ThreeApp (options) {
 
     document.body.appendChild(this.renderer.domElement);
 
-    if (typeof opts.onResize === 'function') this.onResize = opts.onResize;
-    if (typeof opts.onRender === 'function') this.onRender = opts.onRender;
-    if (typeof opts.onInit === 'function') this.onInit = opts.onInit;
+    this.timer = new Timer();
+
+    eventize(this);
+
+    this.on(opts, {
+        onInit: 'init',
+        onResize: 'resize',
+        onRender: 'render',
+    });
 
     this.resize();
-    window.addEventListener('resize', this.resize.bind(this), false);
 
     if (opts.showStats) {
         this.stats = new Stats();
@@ -50,9 +64,7 @@ export function ThreeApp (options) {
         document.body.appendChild(el);
     }
 
-    if (this.onInit) {
-        this.onInit(this);
-    }
+    this.emit('init', this);
 
     requestAnimationFrame(this.render.bind(this));
 
@@ -64,6 +76,8 @@ ThreeApp.prototype.resize = function () {
     let w = container.clientWidth;
     let h = container.clientHeight;
 
+    if (this.width === w && this.height === h) return;
+
     if (!this.camera) {
 
         this.camera = new THREE.PerspectiveCamera(75, w / h, 1, 10000);
@@ -74,7 +88,6 @@ ThreeApp.prototype.resize = function () {
     } else if (this.camera.createdByThreeApp) {
 
         this.camera.aspect = w / h;
-        //this.camera.updateProjectionMatrix();
         this.camera.projectionMatrixNeedsUpdate = true;
 
     }
@@ -94,9 +107,7 @@ ThreeApp.prototype.resize = function () {
         }
     });
 
-    if ('function' === typeof this.onResize) {
-        this.onResize(w, h, this);
-    }
+    this.emit('resize', w, h, this);
 
 };
 
@@ -104,14 +115,16 @@ ThreeApp.prototype.render = function (time) {
 
     if (this.stats) this.stats.begin();
 
+    this.timer.tick(time);
+
+    this.resize();
+
     if (this.camera.createdByThreeApp && this.camera.projectionMatrixNeedsUpdate) {
         this.camera.updateProjectionMatrix();
         this.camera.projectionMatrixNeedsUpdate = false;
     }
 
-    if ('function' === typeof this.onRender) {
-        this.onRender(time, this);
-    }
+    this.emit('render', this.timer.seconds, this);
 
     this.renderer.render(this.scene, this.camera);
 
@@ -119,6 +132,18 @@ ThreeApp.prototype.render = function (time) {
 
     requestAnimationFrame(this.render.bind(this));
 
+};
+
+ThreeApp.prototype.enablePointerPositionTracking = function (options) {
+
+    this.pointer = new PointerPositionTracker(this.domElement, options);
+
+    this.on('render', EVENT_PRIO_HIGH, () => this.pointer.tick(this.timer.deltaSeconds));
+
+};
+
+ThreeApp.prototype.preventDefaultTouchEvents = function () {
+    preventDefaultTouchEvents();
 };
 
 Object.defineProperties(ThreeApp.prototype, {

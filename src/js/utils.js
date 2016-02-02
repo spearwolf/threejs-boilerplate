@@ -4,9 +4,8 @@ const preventDefault = function (event) {
     event.preventDefault();
 };
 
-export function preventDefaultTouchEvents (elem) {
-    if (!elem) elem = document.body;
-    //elem.addEventListener('touchstart', preventDefault, false);
-    elem.addEventListener('touchmove', preventDefault, false);
+export function preventDefaultTouchEvents (element = document.body) {
+    //element.addEventListener('touchstart', preventDefault, false);
+    element.addEventListener('touchmove', preventDefault, false);
 }
 
