@@ -1,4 +1,5 @@
 // webpack.config.js
+//
 const path                   = require('path');
 const webpack                = require('webpack');
 const HtmlWebpackPlugin      = require('html-webpack-plugin');
@@ -11,17 +12,17 @@ const BUILD_DEV    = !! JSON.parse(process.env.BUILD_DEV || 'true');
 
 var plugins = [
     new HtmlWebpackPlugin({
-        title: PACKAGE_JSON.name,
-        //minify: !BUILD_DEV, <= got errors here :-(
-        hash: !BUILD_DEV,
-        config: CONFIG,
-        template: 'src/index.html',
-        inject: 'body'
+        title    : PACKAGE_JSON.name,
+        //minify : !BUILD_DEV, <= got errors here : -(
+        hash     : !BUILD_DEV,
+        config   : CONFIG,
+        template : 'src/index.html',
+        inject   : 'body'
     }),
     new ModernizrWebpackPlugin({
-        minify: true,
+                 filename: 'lib/modernizr-bundle.js',
         'feature-detects': CONFIG.modernizr.featureDetects,
-        filename: 'lib/modernizr-bundle.js',
+                   minify: true,
     }),
     new webpack.DefinePlugin({
                          'DEBUG': JSON.stringify(BUILD_DEV),

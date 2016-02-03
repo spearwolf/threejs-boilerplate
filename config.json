@@ -1,6 +1,6 @@
 {
     "enableStats": true,
-    "enableDatGui": false,
+    "enableDatGui": true,
     "modernizr": {
         "featureDetects": [
             "touchevents"

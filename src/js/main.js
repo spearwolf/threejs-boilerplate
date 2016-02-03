@@ -1,48 +1,68 @@
-/* global DEBUG */
-/* global Modernizr */
-/* global __DATGUI__ */
-/* global __PACKAGE_NAME__ */
-/* global __PACKAGE_VERSION__ */
-/* global __STATS__ */
-/* global dat */
 'use strict';
 
-import { THREE, ThreeApp } from 'threejs-boilerplate';
-import demo from './demo';
+import { THREE } from 'threejs-boilerplate';
 
 //====================================================================//
-// main
+// configuration (optional)
 //====================================================================//
 
-export function main () {
+export function configure (app) {
 
-    const ZEN_MODE = Modernizr.touchevents;
+    //app.preventDefaultTouchEvents();
+    app.enablePointerPositionTracking();
 
-    let app = new ThreeApp({
-        showStats: (__STATS__ && !ZEN_MODE),
-        onRender: demo.animate,
-        onInit: demo.init
+    Object.assign(app, {
+
+        scaleX: 1.0,
+        scaleY: 1.0,
+        scaleZ: 1.0
+
     });
 
-    if (typeof demo.configure === 'function') {
-        demo.configure.call(app, app);
-    }
+    app.on('dat-gui', function (dat) {
 
-    if (__DATGUI__ && !ZEN_MODE) init_dat_gui(app);
+        let gui = new dat.GUI({
+            height: 3 * 32 - 1
+        });
 
-    if (DEBUG) {
-        window.app = app;
-        window.THREE = THREE;
-        console.log(__PACKAGE_NAME__, __PACKAGE_VERSION__);
-    }
+        gui.add(app, 'scaleX').min(0.1).max(5.0).name('Scale X');
+        gui.add(app, 'scaleY').min(0.1).max(5.0).name('Scale Y');
+        gui.add(app, 'scaleZ').min(0.1).max(5.0).name('Scale Z');
+
+    });
 
 }
 
-function init_dat_gui (app) {
+//====================================================================//
+// init scene
+//====================================================================//
 
-    if (typeof dat === 'undefined') return;
+export function init (app) {
 
-    app.emit('dat-gui', dat);
+    let geometry = new THREE.BoxGeometry(400, 400, 400);
+    let material = new THREE.MeshBasicMaterial({
+                     color: 0xffffcc,
+                 wireframe: true,
+        wireframeLinewidth: 2
+    });
+
+    app.mesh = new THREE.Mesh(geometry, material);
+    app.scene.add(app.mesh);
+
+}
+
+//====================================================================//
+// animate scene
+//====================================================================//
+
+export function animate (time, app) {
+
+    app.mesh.scale.x = app.scaleX;
+    app.mesh.scale.y = app.scaleY;
+    app.mesh.scale.z = app.scaleZ;
+
+    app.mesh.rotation.x += 0.01 + (app.pointer.drag.x * 0.2);
+    app.mesh.rotation.y += 0.02 + (app.pointer.drag.y * 0.2);
 
 }
 

@@ -3,5 +3,5 @@ require('main.scss');
 if (__STATS__) {
     require('stats.scss');
 }
-import { main } from 'main';
-main();
+import bootstrap from 'bootstrap';
+bootstrap();
