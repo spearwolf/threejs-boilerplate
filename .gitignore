@@ -2,3 +2,4 @@ node_modules/
 bower_components/
 public/bundle.js
 public/index.html
+public/lib/modernizr-bundle.js

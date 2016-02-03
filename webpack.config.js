@@ -1,7 +1,8 @@
 // webpack.config.js
-const path              = require('path');
-const webpack           = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path                   = require('path');
+const webpack                = require('webpack');
+const HtmlWebpackPlugin      = require('html-webpack-plugin');
+const ModernizrWebpackPlugin = require('modernizr-webpack-plugin');
 
 const PUBLIC       = __dirname + "/public";
 const PACKAGE_JSON = require('./package.json');
@@ -16,6 +17,11 @@ var plugins = [
         config: CONFIG,
         template: 'src/index.html',
         inject: 'body'
+    }),
+    new ModernizrWebpackPlugin({
+        minify: true,
+        'feature-detects': CONFIG.modernizr.featureDetects,
+        filename: 'lib/modernizr-bundle.js',
     }),
     new webpack.DefinePlugin({
                          'DEBUG': JSON.stringify(BUILD_DEV),
