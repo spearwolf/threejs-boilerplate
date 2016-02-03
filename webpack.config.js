@@ -1,12 +1,22 @@
-const path = require('path');
-const webpack = require('webpack');
+// webpack.config.js
+const path              = require('path');
+const webpack           = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const PUBLIC = __dirname + "/public";
+const PUBLIC       = __dirname + "/public";
 const PACKAGE_JSON = require('./package.json');
-const CONFIG = require('./config.json');
-const BUILD_DEV = JSON.parse(process.env.BUILD_DEV || 'true');
+const CONFIG       = require('./config.json');
+const BUILD_DEV    = !! JSON.parse(process.env.BUILD_DEV || 'true');
 
 var plugins = [
+    new HtmlWebpackPlugin({
+        title: PACKAGE_JSON.name,
+        //minify: !BUILD_DEV, <= got errors here :-(
+        hash: !BUILD_DEV,
+        config: CONFIG,
+        template: 'src/index.html',
+        inject: 'body'
+    }),
     new webpack.DefinePlugin({
                          'DEBUG': JSON.stringify(BUILD_DEV),
               '__PACKAGE_NAME__': PACKAGE_JSON.name,
@@ -60,3 +70,4 @@ module.exports = {
         ]
     },
 };
+

@@ -6,7 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="mobile-web-app-capable" content="yes">
-    <title>demo or die</title>
+    <title><%= htmlWebpackPlugin.options.title %></title>
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="favicon/apple-touch-icon-114x114.png" />
     <link rel="apple-touch-icon-precomposed" sizes="120x120" href="favicon/apple-touch-icon-120x120.png" />
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="favicon/apple-touch-icon-144x144.png" />
@@ -23,7 +23,6 @@
     <script src="lib/modernizr-custom.js"></script>
   </head>
   <body>
-    <script src="lib/dat.gui.min.js"></script>
-    <script src="bundle.js"></script>
+    <% if (htmlWebpackPlugin.options.config.enableDatGui) { %><script src="lib/dat.gui.min.js"></script><% } %>
   </body>
 </html>
