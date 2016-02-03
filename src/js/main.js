@@ -1,3 +1,4 @@
+/* global Modernizr */
 /* global dat */
 'use strict';
 
@@ -24,14 +25,20 @@ const DEFAULT_SETTINGS = {
 
 export function main () {
 
-    let app = new ThreeApp({ onRender: animate, onInit: init });
+    let isKioskMode = Modernizr.touchevents;
+
+    let app = new ThreeApp({
+        showStats: !isKioskMode,
+        onRender: animate,
+        onInit: init
+    });
 
     Object.assign(app, DEFAULT_SETTINGS);
 
     //app.preventDefaultTouchEvents();
     app.enablePointerPositionTracking();
 
-    init_dat_gui(app);
+    if (!isKioskMode) init_dat_gui(app);
 
     if (DEBUG) {
         window.THREE = THREE;

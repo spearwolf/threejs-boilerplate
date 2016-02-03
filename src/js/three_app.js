@@ -54,6 +54,7 @@ export function ThreeApp (options) {
     });
 
     this.resize();
+    //window.addEventListener('resize', this.resize.bind(this), false);
 
     if (opts.showStats) {
         this.stats = new Stats();
