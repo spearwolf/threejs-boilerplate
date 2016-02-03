@@ -25,10 +25,10 @@ const DEFAULT_SETTINGS = {
 
 export function main () {
 
-    let isKioskMode = Modernizr.touchevents;
+    const ZEN_MODE = Modernizr.touchevents;
 
     let app = new ThreeApp({
-        showStats: !isKioskMode,
+        showStats: !ZEN_MODE,
         onRender: animate,
         onInit: init
     });
@@ -38,11 +38,11 @@ export function main () {
     //app.preventDefaultTouchEvents();
     app.enablePointerPositionTracking();
 
-    if (!isKioskMode) init_dat_gui(app);
+    if (!ZEN_MODE) init_dat_gui(app);
 
     if (DEBUG) {
         window.THREE = THREE;
-        window.threeApp = app;
+        window.app = app;
         console.debug("hello from threejs-boilerplate");
     }
 
