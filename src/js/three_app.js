@@ -3,10 +3,9 @@
 export const THREE = require('../../bower_components/three.js/build/three.min');
 export const Stats = require('../../bower_components/stats.js/build/stats.min');
 
-import PointerPositionTracker from './pointer_position_tracker';
-import eventize from './custom_event';
-import Timer from './timer';
-import { preventDefaultTouchEvents } from './utils';
+import PointerPositionTracker from './utils/pointer_position_tracker';
+import eventize from './utils/custom_event';
+import Timer from './utils/timer';
 
 
 const EVENT_PRIO_HIGH = 100000;
@@ -144,7 +143,7 @@ ThreeApp.prototype.enablePointerPositionTracking = function (options) {
 };
 
 ThreeApp.prototype.preventDefaultTouchEvents = function () {
-    preventDefaultTouchEvents();
+    document.body.addEventListener('touchmove', (event) => { event.preventDefault() }, false);
 };
 
 Object.defineProperties(ThreeApp.prototype, {

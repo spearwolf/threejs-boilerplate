@@ -1,7 +1,7 @@
 var PUBLIC = __dirname + "/public";
 
 module.exports = {
-    entry: "./src/app.js",
+    entry: "./src/bundle.js",
     output: {
         path: PUBLIC,
         filename: "bundle.js"
