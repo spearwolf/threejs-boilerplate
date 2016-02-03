@@ -15,4 +15,4 @@ threejs-boilerplate
 
    `$ npm start`
 
-3. develop ;-)
+3. develop :smiley:
