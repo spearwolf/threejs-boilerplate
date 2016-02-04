@@ -8,7 +8,7 @@
 'use strict';
 
 import { THREE, ThreeApp } from 'threejs-boilerplate';
-import main from './main';
+import * as main from './main';
 
 //====================================================================//
 // bootstrap
@@ -33,7 +33,7 @@ export default function () {
     if (DEBUG) {
         window.app = app;
         window.THREE = THREE;
-        console.log(__PACKAGE_NAME__, __PACKAGE_VERSION__);
+        console.log(__PACKAGE_NAME__, 'v'+__PACKAGE_VERSION__);
     }
 
 }

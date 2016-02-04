@@ -26,8 +26,8 @@ var plugins = [
     }),
     new webpack.DefinePlugin({
                          'DEBUG': JSON.stringify(BUILD_DEV),
-              '__PACKAGE_NAME__': PACKAGE_JSON.name,
-           '__PACKAGE_VERSION__': PACKAGE_JSON.version,
+              '__PACKAGE_NAME__': "'"+PACKAGE_JSON.name+"'",
+           '__PACKAGE_VERSION__': "'"+PACKAGE_JSON.version+"'",
                      '__STATS__': CONFIG.enableStats,
                     '__DATGUI__': CONFIG.enableDatGui,
     })

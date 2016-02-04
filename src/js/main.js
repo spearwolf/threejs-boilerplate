@@ -31,6 +31,16 @@ export function configure (app) {
 
     });
 
+    app.pointer.on('tapStart', () => {
+        app.renderer.setClearColor( 0xffffff, 0.25);
+        app.domElement.style.cursor = 'move';
+    });
+
+    app.pointer.on('tapEnd', () => {
+        app.renderer.setClearColor( 0xffffff, 0.0);
+        app.domElement.style.cursor = 'default';
+    });
+
 }
 
 //====================================================================//

@@ -21,6 +21,13 @@ body {
     overflow: hidden;
     background-color: $bgCol;
     background: linear-gradient(to bottom, #61a5dd 0%,#aeecfe 100%);
+
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    perspective: 1000;
 }
 
 canvas {
