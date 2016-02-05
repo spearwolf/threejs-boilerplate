@@ -71,8 +71,8 @@ export function animate (time, app) {
     app.mesh.scale.y = app.scaleY;
     app.mesh.scale.z = app.scaleZ;
 
-    app.mesh.rotation.x += 0.01 + (app.pointer.drag.x * 0.2);
-    app.mesh.rotation.y += 0.02 + (app.pointer.drag.y * 0.2);
+    app.mesh.rotation.x += 0.01 + (app.pointer.drag.y * 0.2);
+    app.mesh.rotation.y += 0.02 + (app.pointer.drag.x * 0.2);
 
 }
 
