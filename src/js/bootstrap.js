@@ -33,6 +33,7 @@ export default function () {
     if (DEBUG) {
         window.app = app;
         window.THREE = THREE;
+        window.scene = app.scene;
         console.log(__PACKAGE_NAME__, 'v'+__PACKAGE_VERSION__);
     }
 
